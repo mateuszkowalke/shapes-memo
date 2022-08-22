@@ -49,13 +49,28 @@ shapes.forEach(shape => {
 
 const game = document.getElementById("game")!;
 const triesCounter = document.getElementById("tries-counter")!;
-const reward = document.getElementById("reward")!;
+
 const rewardDiv = document.createElement('div');
 rewardDiv.classList.add('centered');
+
 const audioEl = document.createElement('audio');
 audioEl.src = 'applause.mp3';
+
+const videoEl = document.createElement('video');
+videoEl.src = 'shapes-song.mp4';
+videoEl.classList.toggle('hidden');
+// this event listener will trigger every time after the ending song is played
+// it restarts the game
+videoEl.addEventListener('ended', () => {
+    reward.classList.toggle('hidden');
+    videoEl.classList.toggle('hidden');
+    resetGame();
+});
+
+const reward = document.getElementById("reward")!;
 reward.appendChild(rewardDiv);
 reward.appendChild(audioEl);
+reward.appendChild(videoEl);
 
 let isPaused = false;
 let firstPick: HTMLDivElement | null;
@@ -113,13 +128,9 @@ const clickCard = (event: Event) => {
         } else {
             matches++;
             if (matches === 8) {
-                // show the reward for winning the game
-                // need settimeout here to let the animation finish first
-                // otherwise the alert blocks it
-                // 500ms because transition is set to 0.5s
-                setTimeout(() => {
-                    alert("You win!");
-                }, 500);
+                reward.classList.toggle("hidden");
+                videoEl.classList.toggle('hidden');
+                videoEl.play();
             } else {
                 // show the reward for single match
                 reward.classList.toggle("hidden");
