@@ -73,4 +73,27 @@ button {
      border: none;
      padding: 10px 20px;
      cursor: pointer;
- }
+}
+
+.reward {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #1f2760;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.centered {
+    width: 10%;
+    height: 10%;
+}
